@@ -1,0 +1,36 @@
+{% load static %}
+<html>
+    <head>
+        <a href = "{% url 'home' status=2 %}">Go to Finished list</a>
+        <hr>
+    </head>
+    <body>
+    <div>
+    <form method="post" action="{% url 'add'%}">
+    {% csrf_token %}
+    <label for="body">To do:</label>
+    <input type="text" name="body" required>
+    <button type="submit">Add Note</button>
+    </form>
+    </div>
+    
+        {% for note in notes %}
+        {% if note.status == 1 %}
+        <div>
+            <p>Note {{ note.id }}: {{ note.body }}</p>
+            <a href="{% url 'done' pk=note.id %}">Done</a></p>
+
+    <form method="post" action="{% url 'update' pk=note.id %}">
+        {% csrf_token %}
+        <input type="text" name="body" required>
+        <button type="submit">Update Note</button>
+    </form>
+
+        <a href="{% url 'delete' pk=note.id %}">Delete</a></p>
+        </div>
+        <hr>
+        {% endif %}
+        {% endfor %}
+
+    </body>
+</html>

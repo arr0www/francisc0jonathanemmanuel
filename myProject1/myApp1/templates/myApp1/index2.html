@@ -1,0 +1,15 @@
+{% load static %}
+<html>
+    <head>
+    </head>
+    <body>
+        {% for note in notes %}
+        {% if note.status == 2 %}
+            <p>Note {{ note.id }}: {{ note.body }}</p>
+            <a href="{% url 'delete' pk=note.id %}">Delete</a></p>
+        {% endif %}
+        {% endfor %}
+
+    <a href = "{% url 'home' status=1 %}">Go back</a>
+    </body>
+</html>
